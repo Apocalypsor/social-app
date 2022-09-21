@@ -7,4 +7,4 @@ Photo&amp;Video-sharing Social Network APP -  UI &amp; Architecture Design (HW1)
 
 ## Database
 
-![Database](/Users/dov/Github/project---design-hw1-group-x/Database.jpg)
+![Database](./Database.jpg)
