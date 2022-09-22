@@ -1,0 +1,526 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'Toktik'
+  description: 'Toktik API Design Document'
+tags: 
+  - name: account
+    description: Calls related to account service
+  - name: post
+    description: Calls related to post service
+  - name: comment
+    description: Calls related to comment service
+  - name: like
+    description: Calls related to like service
+  - name: follow
+    description: Calls related to follow service
+  - name: activity
+    description: Calls related to timeline service
+
+  
+    
+paths:
+# account
+  /signup:
+    post:
+      tags:
+        - account
+      summary: User signup
+      description: Signup operation for a user
+      responses:
+        '200':
+          description: successful signup
+        '400':
+          description: bad input parameter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserReq'
+  /login:
+    post:
+      tags:
+        - account
+      summary: User login
+      description: Login operation for user
+      responses:
+        '200':
+          description: successful login
+        '400':
+          description: bad input parameter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  description: Username
+                  type: string
+                password:
+                  description: Password
+                  type: string
+              required:
+                - username
+                - password
+
+  '/user/{username}':
+    get:
+      tags:
+        - account
+      summary: Get profile for a certain user
+      description: This will be used for populating user profile
+      parameters:
+        - $ref: '#/components/parameters/username'
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResp'
+        '400':
+          description: bad input parameter
+
+# post
+  '/post/{id}':
+    get:
+      tags:
+        - post
+      summary: Get a certain post
+      description: Get a certain post, this will be used for live update
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Post retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResp'
+        '400':
+          description: bad input parameter
+  
+  '/post':
+    post:
+      tags:
+        - post
+      summary: Add new post for a user
+      description: User can upload a new post using this route
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/PostReq'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+
+  '/comment/{id}':
+    get:
+      tags:
+        - comment
+      summary: Get a certain comment
+      description: Get a certain comment, this will be used for live update
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          description: Comment retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentResp'
+        '400':
+          description: bad input parameter
+  '/comment':
+    post:
+      tags:
+        - comment
+      summary: Add new comment for a post
+      description: User can add new comment for a post
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/CommentReq'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+  '/like/{id}':
+    get:
+      tags:
+        - like
+      summary: Get all likes for a certain post
+      description: Get all likes for a certain post, this will be used for live update
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Likes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - like
+      summary: Add new like for a post
+      description: User can add or remove new like for a post
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Like'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+
+  '/follow/follower/{username}':
+    get:
+      tags:
+        - follow
+      summary: Get all followers
+      description: Get all followers for a certain user
+      parameters:
+        - $ref: '#/components/parameters/username'
+      responses:
+        '200':
+          description: Followers retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+        '400':
+          description: bad input parameter
+  '/follow/following/{username}':
+    get:
+      tags:
+        - follow
+      summary: Get all following users
+      description: Get all following users for a certain user timeline
+      parameters:
+        - $ref: '#/components/parameters/username'
+      responses:
+        '200':
+          description: Followers retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+        '400':
+          description: bad input parameter
+  '/follow/{username}':
+    post:
+      tags:
+        - follow
+      summary: Follow or unfollow a user
+      description: User can follow or unfollow a user
+      parameters:
+        - $ref: '#/components/parameters/username'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/FollowReq'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+
+  '/activity/{username}':
+    get:
+      tags:
+        - activity
+      summary: Get activity feed for a certain user
+      description: This will be used for populating activity feed
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user to get
+      responses:
+        '200':
+          description: Activity feed retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityFeed'
+        '400':
+          description: bad input parameter
+    
+components:
+  schemas:
+    UserReq:
+      type: object
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        profilePicture:
+          type: string
+      required:
+        - username
+        - firstName
+        - lastName
+        - email
+        - password
+        - profilePicture
+    UserResp:
+      type: object
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        profilePicture:
+          type: string
+        followerCount:
+          type: integer
+        followingCount:
+          type: integer
+        postCount:
+          type: integer
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostResp'
+      required:
+        - username
+        - firstName
+        - lastName
+        - email
+        - password
+        - profilePicture
+        - followerCount
+        - followingCount
+        - postCount
+    PostReq:
+      type: object
+      properties:
+        id:
+          type: integer  # for editing post, not required
+        username:
+          type: string
+        postType:
+          type: integer
+        postContent:
+          type: string
+        description:
+          type: string
+        public:
+          type: boolean
+        tagging:
+          type: array
+          items:
+            type: string
+      required:
+        - username
+        - postType
+        - postContent
+        - description
+        - public
+    ActivityFeed:
+      type: object
+      properties:
+        username:
+          type: string
+        success:
+          type: boolean
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostResp'
+    PostResp:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        postType:
+          type: integer
+        postContent:
+          type: string
+        description:
+          type: string
+        public:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        totalLikes:
+          type: integer
+        tagging:
+          type: array
+          items:
+            type: string
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentResp'
+      required:
+        - id
+        - username
+        - postType
+        - postContent
+        - description
+        - public
+        - createdAt
+        - updatedAt
+        - totalLikes
+        - mentions
+        - comments
+    CommentResp:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        postId:
+          type: integer
+        message:
+          type: string
+        mention:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - username
+        - postId
+        - message
+        - createdAt
+        - updatedAt
+    CommentReq:
+      type: object
+      properties:
+        id:
+          type: integer # for editing comment, not required
+        username:
+          type: string
+        postId:
+          type: integer
+        message:
+          type: string
+        mention:
+          type: string
+      required:
+        - username
+        - postId
+        - message
+    Like:
+      type: object
+      properties:
+        postId:
+          type: integer
+        count:
+          type: integer
+      required:
+        - postId
+        - count
+    Follow:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserResp'
+      required:
+        - users
+    FollowReq:
+      type: object
+      properties:
+        username:
+          type: string
+        follower:
+          type: string
+      required:
+        - UserId
+
+  parameters:
+    username:
+      name: username
+      in: path
+      schema:
+        type: string
+      required: true
+      description: Username of the user to get
+    postId:
+      name: id
+      in: path
+      description: ID of the post
+      required: true
+      schema:
+        type: integer
+        format: int64
+    commentId:
+      name: id
+      in: path
+      description: ID of the comment
+      required: true
+      schema:
+        type: integer
+        format: int64
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/swagger292/Toktik/1.0.0
