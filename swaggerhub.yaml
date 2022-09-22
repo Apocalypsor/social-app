@@ -104,6 +104,22 @@ paths:
                 $ref: '#/components/schemas/PostResp'
         '400':
           description: bad input parameter
+    delete:
+      tags:
+        - post
+      summary: Delete a certain post
+      description: Delete a certain post
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Post deleted successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '400':
+          description: bad input parameter
   
   '/post':
     post:
@@ -142,6 +158,24 @@ paths:
                   $ref: '#/components/schemas/CommentResp'
         '400':
           description: bad input parameter
+    
+    delete:
+      tags:
+        - comment
+      summary: Delete a certain comment
+      description: Delete a certain comment
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          description: Comment deleted successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '400':
+          description: bad input parameter
+    
   '/comment':
     post:
       tags:
@@ -237,14 +271,12 @@ paths:
                   $ref: '#/components/schemas/Follow'
         '400':
           description: bad input parameter
-  '/follow/{username}':
+  '/follow':
     post:
       tags:
         - follow
       summary: Follow or unfollow a user
       description: User can follow or unfollow a user
-      parameters:
-        - $ref: '#/components/parameters/username'
       requestBody:
         required: true
         content:
@@ -494,7 +526,8 @@ components:
         follower:
           type: string
       required:
-        - UserId
+        - username
+        - follower
 
   parameters:
     username:
