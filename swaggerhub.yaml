@@ -296,12 +296,7 @@ paths:
       summary: Get activity feed for a certain user
       description: This will be used for populating activity feed
       parameters:
-        - in: path
-          name: username
-          schema:
-            type: string
-          required: true
-          description: Username of the user to get
+        - $ref: '#/components/parameters/username'
       responses:
         '200':
           description: Activity feed retrieved successfully
