@@ -8,3 +8,7 @@ Photo&amp;Video-sharing Social Network APP -  UI &amp; Architecture Design (HW1)
 ## Database
 
 ![Database](./assets/Database.png)
+
+## API Documentation
+
++ [SwaggerHub](https://app.swaggerhub.com/apis/swagger292/Toktik/1.0.0)
