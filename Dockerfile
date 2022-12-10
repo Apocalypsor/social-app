@@ -11,7 +11,7 @@ RUN npm install && npm run build
 FROM nginx:stable-alpine
 WORKDIR /app
 
-ENV NODE_ENV=development \
+ENV NODE_ENV=production \
     BACKEND_PORT=4000 \
     # DO NOT MODIFY BACKEND_PORT
     DB_URL="" \
