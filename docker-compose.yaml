@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  app:
+    image: ghcr.io/apocalypsor/toktiksocial
+    container_name: demo
+    ports:
+      - "80:80"
+    environment:
+      - DB_URL=
+      - R2_ACCOUNT_ID=
+      - R2_ACCOUNT_KEY=
+      - R2_ACCOUNT_SECRET=
+      - R2_BUCKET_NAME=
+      - R2_PUBLIC_URL=
