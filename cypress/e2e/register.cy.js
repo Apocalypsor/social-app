@@ -16,7 +16,7 @@ describe('Test that we could register a new user. ', () => {
     cy.get("input").get('[aria-label="register-password"]').type('testPassword');
 
     cy.get('button').get('[aria-label="register-submit"]').contains('Sign Up');
-    cy.get('button').get('[aria-label="register-submit"]').click();
+    cy.get('button').get('[aria-label="register-submit"]',{ timeout: 10000 }).click();
 
     // check if we are in the main page.
     cy.get("link").get('[aria-label="userCard-username"]').should('exist');
