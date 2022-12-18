@@ -18,7 +18,9 @@ describe('Test that we could follow another user. ', () => {
 
         cy.wait(5000).then(()=>{
             // cy.get('button').eq(13).click();
-            cy.get('[aria-label="side-suggestion"] .follow-button').eq(0).click();
+            const tmpNode = cy.get('[aria-label="side-suggestion"] .follow-button').eq(0);
+            // console.log(tmpNode);
+            tmpNode.click();
         });
 
         // cy.get()
