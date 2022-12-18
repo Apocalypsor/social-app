@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "npx cypress open"
+    "test": "npx cypress run"
   },
   "devDependencies": {
     "cypress": "^12.0.0"
