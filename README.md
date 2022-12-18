@@ -18,9 +18,16 @@ Photo&amp;Video-sharing Social Network APP -  UI &amp; Architecture Design (HW1)
 ## Manually
 
 ### Clone
+
 ```bash
 git clone --recurse-submodules git@github.com:cis557/project-group-x.git
 cd project-group-x
+```
+
+Or if you have clone or download this repo, you need to initiate the submodules:
+
+```bash
+git submodule update --init
 ```
 
 ### Frond End
