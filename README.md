@@ -20,8 +20,8 @@ Photo&amp;Video-sharing Social Network APP -  UI &amp; Architecture Design (HW1)
 ### Clone
 
 ```bash
-git clone --recurse-submodules git@github.com:cis557/project-group-x.git
-cd project-group-x
+git clone --recurse-submodules https://github.com/Apocalypsor/social-app.git
+cd social-app
 ```
 
 Or if you have clone or download this repo, you need to initiate the submodules:
