@@ -18,7 +18,7 @@ Photo&amp;Video-sharing Social Network APP -  UI &amp; Architecture Design (HW1)
 Default User:
 ```
 Username: demo
-password: 123456
+Password: 123456
 ```
 
 ## Manually
