@@ -15,6 +15,12 @@ Photo&amp;Video-sharing Social Network APP -  UI &amp; Architecture Design (HW1)
 
 # Deploy
 
+Default User:
+```
+Username: demo
+password: 123456
+```
+
 ## Manually
 
 ### Clone
