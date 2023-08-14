@@ -34,7 +34,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           build-args: |
-            REACT_APP_API_ENDPOINT=https://toktiksocial.tk/api
+            REACT_APP_API_ENDPOINT=https://social.changqi.me/api
           push: true
           tags: |
             ghcr.io/apocalypsor/toktiksocial:latest
